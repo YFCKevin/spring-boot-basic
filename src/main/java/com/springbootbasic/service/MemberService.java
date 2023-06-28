@@ -4,6 +4,7 @@ import com.springbootbasic.entity.MemberDTO;
 import com.springbootbasic.entity.MemberPO;
 import com.springbootbasic.repository.MemberRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

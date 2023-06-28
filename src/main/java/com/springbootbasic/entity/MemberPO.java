@@ -31,6 +31,7 @@ public class MemberPO implements Serializable {
 
         public MemberDTO toDTO(){
                 return MemberDTO.builder()
+                        .id(id)
                         .name(name)
                         .age(age)
                         .height(height)

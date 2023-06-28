@@ -15,9 +15,9 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<MemberPO, Integer>, JpaSpecificationExecutor<MemberPO> {
 
-    List<MemberPO> findAllByName(String name);
-
-    List<MemberPO> findAllByNameAndSexOrderByAgeDesc(String name, Sex sex, Pageable pageable);
-
-    MemberPO findByNameAndAge(String name);
+//    List<MemberPO> findAllByName(String name);
+//
+//    List<MemberPO> findAllByNameAndSexOrderByAgeDesc(String name, Sex sex, Pageable pageable);
+//
+//    MemberPO findByNameAndAge(String name);
 }

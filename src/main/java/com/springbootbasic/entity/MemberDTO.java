@@ -23,6 +23,7 @@ public class MemberDTO {
 
     public MemberPO toPO(){
         return MemberPO.builder()
+                .id(id)
                 .name(name)
                 .age(age)
                 .height(height)

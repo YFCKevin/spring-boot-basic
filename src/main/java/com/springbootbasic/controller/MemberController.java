@@ -1,15 +1,14 @@
 package com.springbootbasic.controller;
 
 import com.springbootbasic.entity.MemberDTO;
+import com.springbootbasic.entity.MemberListDTO;
 import com.springbootbasic.service.MemberService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1.0")
 public class MemberController {
@@ -17,6 +16,11 @@ public class MemberController {
     // 不使用@Autowired的原因是可以脫離spring的掌控，比如寫unit test，constructor injection可意識到component的責任
     // constructor injection
     private final MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
+
     @PostMapping("/members")
     public ResponseEntity<MemberDTO> postMember(@RequestBody MemberDTO memberDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.createMember(memberDTO));
@@ -25,6 +29,15 @@ public class MemberController {
     @GetMapping("/members")
     public ResponseEntity<List<MemberDTO>> getMembers(){
         return ResponseEntity.ok(memberService.readMembers());
+    }
+
+    @GetMapping("/allMembers")
+    public ResponseEntity<MemberListDTO> getAllMembers(){
+        List<MemberDTO> memberDTOs = memberService.readMembers();
+        MemberListDTO memberListDTO = new MemberListDTO();
+        memberListDTO.setMemberDTOList(memberDTOs);
+        System.out.println(memberListDTO);
+        return ResponseEntity.ok(memberListDTO);
     }
 
     @GetMapping("/members/{id}")
