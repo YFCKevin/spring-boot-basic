@@ -1,6 +1,7 @@
 package com.springbootbasic.api;
 
 import com.springbootbasic.api.dto.CourseDTO;
+import com.springbootbasic.api.dto.CourseListDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -21,5 +22,10 @@ public class CourseService {
 
         return restTemplate.exchange("http://localhost:8081/getAllCourses", HttpMethod.GET, null, responseType);
 
+    }
+
+    public ResponseEntity<CourseListDTO> findAllCourses() {
+
+        return ResponseEntity.ok().body(restTemplate.getForObject("http://localhost:8081/getAllCourses", CourseListDTO.class));
     }
 }

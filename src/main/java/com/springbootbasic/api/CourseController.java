@@ -1,6 +1,7 @@
 package com.springbootbasic.api;
 
 import com.springbootbasic.api.dto.CourseDTO;
+import com.springbootbasic.api.dto.CourseListDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,5 +20,10 @@ public class CourseController {
     @GetMapping("/courses")
     public ResponseEntity<List<CourseDTO>> getAllCourses(){
         return courseService.queryAllCourses();
+    }
+
+    @GetMapping("/getAllCourses")
+    public ResponseEntity<CourseListDTO> queryAllCourses(){
+        return courseService.findAllCourses();
     }
 }
