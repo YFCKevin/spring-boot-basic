@@ -2,7 +2,11 @@ package com.springbootbasic.controller;
 
 import com.springbootbasic.entity.MemberDTO;
 import com.springbootbasic.entity.MemberListDTO;
+import com.springbootbasic.entity.MemberPO;
+import com.springbootbasic.repository.MemberRepository;
 import com.springbootbasic.service.MemberService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +15,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1.0")
+@AllArgsConstructor
 public class MemberController {
 
     // 不使用@Autowired的原因是可以脫離spring的掌控，比如寫unit test，constructor injection可意識到component的責任
     // constructor injection
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     @PostMapping("/members")
     public ResponseEntity<MemberDTO> postMember(@RequestBody MemberDTO memberDTO){
@@ -54,6 +57,28 @@ public class MemberController {
 //        } else {
 //            return ResponseEntity.ok(memberPoOpt.get());
 //        }
+    }
+
+    @GetMapping("/members/sex/{sex}")
+    public ResponseEntity<List<MemberPO>> findAllMaleMembers(String sex){
+        return ResponseEntity.ok().body(memberRepository.findAllMembersWhenSexIsMale(sex));
+    }
+
+    @PatchMapping("/updateAgeByName")
+    public ResponseEntity<Integer> updateAgeByName(
+            @RequestParam Integer age,
+            @RequestParam String name
+    ){
+        return ResponseEntity.ok().body(memberRepository.updateMemberSetAgeForName(age, name));
+    }
+
+    @GetMapping("/searchMembers")
+    public ResponseEntity<List<MemberPO>> searchMembersByNameAgeSex(
+            @RequestParam String name,
+            @RequestParam Integer age,
+            @RequestParam String sex
+    ){
+        return ResponseEntity.ok().body(memberRepository.searchMembers(name, age, sex));
     }
 
     @PatchMapping("/members/{id}")

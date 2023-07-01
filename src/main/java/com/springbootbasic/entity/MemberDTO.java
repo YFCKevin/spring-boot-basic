@@ -1,5 +1,6 @@
 package com.springbootbasic.entity;
 
+import com.springbootbasic.enu.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

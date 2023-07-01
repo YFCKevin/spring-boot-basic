@@ -1,6 +1,7 @@
 package com.springbootbasic.entity;
 
 
+import com.springbootbasic.enu.Sex;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class MemberPO implements Serializable {
 
         private Float height;
 
+        @Enumerated(value = EnumType.STRING)
         private Sex sex;
 
         public MemberDTO toDTO(){
