@@ -2,6 +2,7 @@ package com.springbootbasic.service;
 
 import com.springbootbasic.entity.MemberDTO;
 import com.springbootbasic.entity.MemberPO;
+import com.springbootbasic.partialupdate.util.MemberMapper;
 import com.springbootbasic.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    private final MemberMapper memberMapper;
 
     public MemberDTO createMember(MemberDTO memberDTO){
         return memberRepository
@@ -74,5 +77,11 @@ public class MemberService {
 
     public void deleteMember(Integer id){
         memberRepository.deleteById(id);
+    }
+
+    public void updateMemberWithMapper(MemberDTO memberDTO){
+        MemberPO memberPO = memberRepository.findById(memberDTO.getId()).orElse(null);
+        memberMapper.updateMemberFromDto(memberDTO, memberPO);
+        memberRepository.save(memberPO);
     }
 }
