@@ -33,4 +33,6 @@ public interface MemberRepository extends JpaRepository<MemberPO, Integer>, JpaS
     // 使用註解執行刪除查詢時，執行一條單獨的刪除語句，不加載實體對像也不觸發生命週期@Query方法；
     // 而使用基於名稱的查詢方法deleteBy時，先加載實體對象並逐個刪除，觸發相應的生命週期方法。
     List<MemberPO> deleteByAge(Double age);
+
+
 }
