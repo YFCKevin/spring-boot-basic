@@ -60,12 +60,12 @@ public class PaymentService {
                         .and(payment.registerYear.between(2021, 2023)))
                 .fetch();
         return tuples.stream().map(t -> {
-            MachinePaymentDTO dto = new MachinePaymentDTO();
-            dto.setMachineName(t.get(machine.name));
-            dto.setPaymentName(t.get(payment.name));
-            dto.setRegisterYear(t.get(payment.registerYear));
-            dto.setApprovalYear(t.get(payment.approvalYear));
-            return dto;
+            return MachinePaymentDTO.builder()
+                    .machineName(t.get(machine.name))
+                    .paymentName(t.get(payment.name))
+                    .registerYear(t.get(payment.registerYear))
+                    .approvalYear(t.get(payment.approvalYear))
+                    .build();
         }).toList();
     }
 }
