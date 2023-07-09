@@ -30,7 +30,7 @@ public interface MemberRepository extends JpaRepository<MemberPO, Integer>, JpaS
     List<MemberPO> findAllMembersWhenSexIsMale(String sex);
 
     // @Query和deleteBy: 兩種刪除方式的區別在於是否先加載實體對像到內存中以及是否觸發實體的生命週期方法。
-    // 使用註解執行刪除查詢時，執行一條單獨的刪除語句，不加載實體對像也不觸發生命週期@Query方法；
+    // 使用註解@Query執行刪除查詢時，執行一條單獨的刪除語句，不加載實體對像也不觸發生命週期@Query方法；
     // 而使用基於名稱的查詢方法deleteBy時，先加載實體對象並逐個刪除，觸發相應的生命週期方法。
     List<MemberPO> deleteByAge(Double age);
 }

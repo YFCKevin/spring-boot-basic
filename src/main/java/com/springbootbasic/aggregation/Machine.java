@@ -1,5 +1,6 @@
 package com.springbootbasic.aggregation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class Machine {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "machine")
     private List<Payment> payments;
 
