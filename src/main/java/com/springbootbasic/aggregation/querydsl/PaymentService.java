@@ -1,6 +1,7 @@
 package com.springbootbasic.aggregation.querydsl;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.springbootbasic.aggregation.Payment;
 import com.springbootbasic.aggregation.QMachine;
@@ -48,6 +49,23 @@ public class PaymentService {
             count.setMachineName(t.get(machine.name));
             count.setPaymentCount(t.get(payment.count()));
             return count;
+        }).toList();
+    }
+
+    public List<MachinePaymentDTO> getMachinePaymentCounts_excludePaymentApprovalYearIsNull(){
+        List<Tuple> tuples = jpaQueryFactory.select(machine.name, payment.name, payment.registerYear, payment.approvalYear)
+                .from(machine)
+                .leftJoin(machine.payments, payment)
+                .where(payment.approvalYear.isNotNull()
+                        .and(payment.registerYear.between(2021, 2023)))
+                .fetch();
+        return tuples.stream().map(t -> {
+            MachinePaymentDTO dto = new MachinePaymentDTO();
+            dto.setMachineName(t.get(machine.name));
+            dto.setPaymentName(t.get(payment.name));
+            dto.setRegisterYear(t.get(payment.registerYear));
+            dto.setApprovalYear(t.get(payment.approvalYear));
+            return dto;
         }).toList();
     }
 }

@@ -31,4 +31,9 @@ public class PaymentController {
     public ResponseEntity<?> getMachinePaymentCounts(){
         return ResponseEntity.ok().body(paymentService.getMachinePaymentCounts());
     }
+
+    @GetMapping("/getValidMachinesPayments")
+    public ResponseEntity<?> getValidMachinesPayments(){
+        return ResponseEntity.ok().body(paymentService.getMachinePaymentCounts_excludePaymentApprovalYearIsNull());
+    }
 }
